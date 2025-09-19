@@ -1,25 +1,16 @@
 import AuthLayout from "../../components/AuthLayout";
 import Input from "../../components/Input";
-import { FaRegUser } from "react-icons/fa";
-import { LuUpload } from "react-icons/lu";
-import { useRef } from "react";
 import FormButton from "../../components/FormButton";
 import { useNavigate } from "react-router-dom";
+import AvatarUpload from "../../components/AvatarUpload";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const fileInputRef = useRef(null);
+  const handleSignUp = async () => {};
 
-  const handleFileClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      console.log("wybrane zdjecie", file);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -32,23 +23,7 @@ const SignUp = () => {
           </p>
 
           <form className="flex flex-col gap-8 w-full">
-            <div className="mt-8 text-center">
-              <div
-                className="cursor-pointer relative inline-block"
-                onClick={handleFileClick}
-              >
-                <FaRegUser className="bg-purple-200 rounded-full size-18 p-2 items-center flex text-purple-600" />
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                />
-                <LuUpload className="absolute -right-2 -bottom-1 size-8 rounded-full bg-purple-500 text-white p-1" />
-              </div>
-            </div>
-
+            <AvatarUpload />
             <div className="flex w-full flex-col gap-8">
               <div className="w-full flex flex-row gap-4 ">
                 <Input title="Full Name" placeholder="John" type="text" />
