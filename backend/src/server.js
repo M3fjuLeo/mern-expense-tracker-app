@@ -1,9 +1,9 @@
-const express = required("express");
-const mongoose = required("mongoose");
-const cors = required("cors");
-required("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
-const authRoutes = required("./routes/auth");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
@@ -17,7 +17,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error: ", err));
 
-const PORT = process.env || 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });

@@ -1,29 +1,31 @@
-const mongoose = required("mongoose");
-const bcrypt = required("bcryptjs");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
-  fullName: {
-    type: String,
-    required: [true, "Please tell us your name"],
-    trim: true,
+const userSchema = new mongoose.Schema(
+  {
+    fullName: {
+      type: String,
+      required: [true, "Please tell us your name"],
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Please provide your email"],
+      unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Please provide a password"],
+      minLength: 8,
+    },
+    avatar: {
+      type: String,
+      default: null,
+    },
   },
-  email: {
-    type: String,
-    required: [true, "Please provide your email"],
-    unique: true,
-    lowercase: true,
-  },
-  password: {
-    type: String,
-    required: [true, "Please provide a password"],
-    minLength: 8,
-  },
-  avatar: {
-    type: String,
-    default: null,
-  },
-  timestamps: true,
-});
+  { timestamps: true }
+);
 
 userSchema.pre("save", async function (next) {
   // Only run this function if password was actually modified
