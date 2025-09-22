@@ -5,9 +5,10 @@ interface InputProps {
   title: string;
   placeholder?: string;
   type: string;
+  value?: string;
 }
 
-const Input = ({ title, placeholder, type }: InputProps) => {
+const Input = ({ title, placeholder, type, value }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPassword = type === "password";
@@ -20,6 +21,7 @@ const Input = ({ title, placeholder, type }: InputProps) => {
         <input
           type={inputType}
           placeholder={placeholder}
+          value={value || ""}
           className="bg-gray-100 py-3 w-full px-4 rounded-md"
         />
 
