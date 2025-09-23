@@ -3,7 +3,7 @@ import Input from "../../components/Input";
 import FormButton from "../../components/FormButton";
 import { useNavigate } from "react-router-dom";
 import AvatarUpload from "../../components/AvatarUpload";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -17,6 +17,13 @@ const SignUp = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const handleInputChange = (name: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSignUp = async () => {
     try {
@@ -51,7 +58,7 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSignUp();
   };
@@ -71,15 +78,17 @@ const SignUp = () => {
               <div className="w-full flex flex-row gap-4 ">
                 <Input
                   title="Full Name"
-                  value={formData.fullName}
                   placeholder="John"
                   type="text"
+                  value={formData.fullName}
+                  onChange={(value) => handleInputChange("fullName", value)}
                 />
                 <Input
                   title="Email Address"
                   placeholder="john@example.com"
                   type="text"
                   value={formData.email}
+                  onChange={(value) => handleInputChange("email", value)}
                 />
               </div>
               <Input
@@ -87,10 +96,14 @@ const SignUp = () => {
                 placeholder="Min 8 Characters"
                 type="password"
                 value={formData.password}
+                onChange={(value) => handleInputChange("password", value)}
               />
             </div>
 
-            <FormButton title="sign up" />
+            <FormButton
+              title={isLoading ? "Creating Account..." : "Sign Up"}
+              disabled={isLoading}
+            />
             <p>
               Already have an account?{" "}
               <span

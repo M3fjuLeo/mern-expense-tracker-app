@@ -6,9 +6,16 @@ interface InputProps {
   placeholder?: string;
   type: string;
   value?: string;
+  onChange?: (value: string) => void;
 }
 
-const Input = ({ title, placeholder, type, value }: InputProps) => {
+const Input = ({
+  title,
+  placeholder,
+  type,
+  value = "",
+  onChange,
+}: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPassword = type === "password";
@@ -23,6 +30,7 @@ const Input = ({ title, placeholder, type, value }: InputProps) => {
           placeholder={placeholder}
           value={value || ""}
           className="bg-gray-100 py-3 w-full px-4 rounded-md"
+          onChange={(e) => onChange?.(e.target.value)}
         />
 
         {isPassword && (
