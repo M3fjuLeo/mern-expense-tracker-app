@@ -8,7 +8,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         <div className="flex items-center h-full w-full">{children}</div>
       </div>
 
-      <div className="h-screen w-[50rem] hidden lg:block bg-red-500">
+      <div className="h-screen w-[50rem] hidden lg:block">
         <img
           className="w-full h-full object-cover"
           src="/loginPageImg.png"
