@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const connectDB = require("../src/config/db");
 const authRoutes = require("../src/routes/authRoutes");
+const incomeRoutes = require("../src/routes/incomeRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/income", incomeRoutes);
 
 // Server uploads folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -27,4 +29,5 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
+  console.log(new Date(Date.now()));
 });
