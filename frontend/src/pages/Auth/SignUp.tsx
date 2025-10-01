@@ -86,7 +86,7 @@ const SignUp = () => {
                 <Input
                   title="Email Address"
                   placeholder="john@example.com"
-                  type="text"
+                  type="email"
                   value={formData.email}
                   onChange={(value) => handleInputChange("email", value)}
                 />
@@ -103,6 +103,7 @@ const SignUp = () => {
             <FormButton
               title={isLoading ? "Creating Account..." : "Sign Up"}
               disabled={isLoading}
+              type="submit"
             />
             <p>
               Already have an account?{" "}
