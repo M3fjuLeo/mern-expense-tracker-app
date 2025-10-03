@@ -1,5 +1,7 @@
+import DashboardLayout from "../../components/DashboardLayout";
+
 const Expense = () => {
-  return <div>Expense</div>;
+  return <DashboardLayout>Expense</DashboardLayout>;
 };
 
 export default Expense;

@@ -1,5 +1,7 @@
+import DashboardLayout from "../../components/DashboardLayout";
+
 const Income = () => {
-  return <div>Income</div>;
+  return <DashboardLayout>Income</DashboardLayout>;
 };
 
 export default Income;
