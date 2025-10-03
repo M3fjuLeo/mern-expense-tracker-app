@@ -2,7 +2,12 @@ import { ChangeEvent, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { LuUpload } from "react-icons/lu";
 
-const AvatarUpload = () => {
+type AvatarUploadProps = {
+  onFileSelect: (file: File) => void;
+};
+
+const AvatarUpload = ({ onFileSelect }: AvatarUploadProps) => {
+  const [file, setFile] = useState<File | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -14,8 +19,8 @@ const AvatarUpload = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (file) {
-      console.log("wybrane zdjecie", file);
-
+      setFile(file);
+      onFileSelect(file);
       const reader = new FileReader();
       reader.onload = (e) => {
         setSelectedImage(e.target?.result as string);

@@ -3,10 +3,19 @@ import Input from "../../components/Input";
 import FormButton from "../../components/FormButton";
 import { useNavigate } from "react-router-dom";
 import AvatarUpload from "../../components/AvatarUpload";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useContext } from "react";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
+import { UserContext } from "../../context/userContext";
+import uploadImage from "../../utils/uploadImage";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    throw new Error("Login must be used within UserProvider");
+  }
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -18,6 +27,8 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const { updateUser } = userContext;
+
   const handleInputChange = (name: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -25,42 +36,45 @@ const SignUp = () => {
     }));
   };
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let profileImageUrl = "";
+
+    if (!formData.fullName || !formData.email || !formData.password) {
+      setError("Please fill all required fields");
+      return;
+    }
+
     try {
       setIsLoading(true);
 
-      const response = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-        }),
+      if (formData.avatar) {
+        const imgUploadRes = await uploadImage(formData.avatar);
+        profileImageUrl = imgUploadRes.imageUrl || "";
+      }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        profileImageUrl,
       });
 
-      const data = await response.json();
+      const { token, user } = response.data;
 
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(user);
         navigate("/dashboard");
-      } else {
-        setError(data.message || "Registration failed");
       }
-    } catch (error) {
-      setError("Network error. Please try again.");
-    } finally {
-      setIsLoading(false);
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleSignUp();
   };
 
   return (
@@ -72,8 +86,12 @@ const SignUp = () => {
             Join us today by entering your details below.
           </p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full">
-            <AvatarUpload />
+          <form onSubmit={handleSignUp} className="flex flex-col gap-8 w-full">
+            <AvatarUpload
+              onFileSelect={(file) =>
+                setFormData((prev) => ({ ...prev, avatar: file }))
+              }
+            />
             <div className="flex w-full flex-col gap-8">
               <div className="w-full flex flex-row gap-4 ">
                 <Input

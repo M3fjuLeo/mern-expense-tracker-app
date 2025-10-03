@@ -8,6 +8,13 @@ import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    throw new Error("Login must be used within UserProvider");
+  }
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,9 +29,7 @@ const Login = () => {
     }));
   };
 
-  const { updateUser } = useContext(UserContext);
-
-  const navigate = useNavigate();
+  const { updateUser } = userContext;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
