@@ -1,19 +1,39 @@
 import CustomLink from "./CustomLink";
 import { MdOutlineDashboard } from "react-icons/md";
+import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
+import { IoIosLogOut } from "react-icons/io";
+import { UserContext } from "../context/userContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { CiUser } from "react-icons/ci";
 
 const Sidebar = () => {
+  const { user, clearUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white p-4 min-h-full">
+    <div className="bg-white p-8 min-h-full flex flex-col gap-8">
+      <div className="items-center flex flex-col gap-2">
+        <CiUser className="text-6xl text-white bg-purple-400 rounded-full p-2" />
+        <h1 className="text-lg font-medium">{user?.fullName}</h1>
+      </div>
       <ul className="flex flex-col gap-4 w-full">
         <CustomLink to="/dashboard">
           <MdOutlineDashboard /> Dashboard
         </CustomLink>
-        <CustomLink to="/income">Income</CustomLink>
-        <CustomLink to="/expense">Expense</CustomLink>
+        <CustomLink to="/income">
+          <LuWalletMinimal />
+          Income
+        </CustomLink>
+        <CustomLink to="/expense">
+          <LuHandCoins />
+          Expense
+        </CustomLink>
 
-        <li>
-          <button>Logout</button>
-        </li>
+        <CustomLink to="/login">
+          <IoIosLogOut />
+          Logout
+        </CustomLink>
       </ul>
     </div>
   );

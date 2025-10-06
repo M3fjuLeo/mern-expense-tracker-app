@@ -1,6 +1,8 @@
+import { useUserAuth } from "../hooks/useUserAuth";
 import Sidebar from "./Sidebar";
 
 const DashboardLayout = ({ children }) => {
+  useUserAuth();
   return (
     <div className="h-screen overflow-hidden">
       <div className="w-full h-full">

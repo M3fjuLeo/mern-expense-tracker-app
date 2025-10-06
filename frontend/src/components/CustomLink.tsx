@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const CustomLink = ({ children, to }) => {
   return (
     <li className="w-full">
-      <Link
+      <NavLink
         to={to}
-        className="hover:bg-purple-400 text-lg hover:text-white flex items-center gap-4 w-full p-2"
+        className={({ isActive }) =>
+          `text-lg flex items-center gap-4 w-full py-2 px-8 rounded-md transition-colors ${
+            isActive
+              ? "bg-purple-500 text-white"
+              : "hover:bg-purple-500 hover:text-white text-gray-700"
+          }`
+        }
       >
         {children}
-      </Link>
+      </NavLink>
     </li>
   );
 };

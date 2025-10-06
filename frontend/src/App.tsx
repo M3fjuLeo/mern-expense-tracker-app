@@ -11,10 +11,11 @@ function App() {
     <UserProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Root />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SignUp />} />
+
+          <Route path="/" element={<Root />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/expense" element={<Expense />} />
           <Route path="/income" element={<Income />} />
         </Routes>
