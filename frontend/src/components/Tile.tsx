@@ -7,7 +7,12 @@ const Tile = ({ value, title, color, icon: Icon }) => {
 
       <div>
         <h3 className="text-xl font-medium text-gray-500">{title}</h3>
-        <span className="text-lg">${value}</span>
+        <span className="text-lg">
+          {value?.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}
+        </span>
       </div>
     </div>
   );
