@@ -6,8 +6,16 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 
+interface DashboardData {
+  totalBalance: number;
+  totalIncome: number;
+  totalExpense: number;
+}
+
 const Dashboard = () => {
-  const [dashboardData, setDashboardData] = useState(null);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   const fetchDashboardData = async () => {
@@ -43,19 +51,19 @@ const Dashboard = () => {
         <div className="flex gap-4 w-full">
           <Tile
             title="Total Balance"
-            value={dashboardData?.totalBalance}
+            value={dashboardData?.totalBalance ?? 0}
             icon={CiCreditCard1}
             color="bg-purple-500"
           />
           <Tile
             title="Total Income"
-            value={dashboardData?.totalIncome}
+            value={dashboardData?.totalIncome ?? 0}
             icon={LuWalletMinimal}
             color="bg-orange-500"
           />
           <Tile
             title="Total Expenses"
-            value={dashboardData?.totalExpense}
+            value={dashboardData?.totalExpense ?? 0}
             icon={LuHandCoins}
             color="bg-red-500"
           />

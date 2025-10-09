@@ -1,6 +1,12 @@
+import { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 
-const CustomLink = ({ children, to }) => {
+type CustomLinkProps = {
+  to: string;
+  children: ReactNode;
+};
+
+const CustomLink = ({ children, to }: CustomLinkProps) => {
   return (
     <li className="w-full">
       <NavLink

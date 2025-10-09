@@ -1,4 +1,13 @@
-const Tile = ({ value, title, color, icon: Icon }) => {
+import type { IconType } from "react-icons";
+
+type TileProps = {
+  value?: number;
+  title: string;
+  color: string;
+  icon: IconType;
+};
+
+const Tile = ({ value, title, color, icon: Icon }: TileProps) => {
   return (
     <div className="bg-white p-8 flex w-full rounded-xl shadow-lg items-center gap-6">
       <div className={`text-5xl ${color} text-white rounded-full p-2`}>

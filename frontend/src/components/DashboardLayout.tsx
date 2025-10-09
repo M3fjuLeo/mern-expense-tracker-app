@@ -1,7 +1,12 @@
+import { ReactNode } from "react";
 import { useUserAuth } from "../hooks/useUserAuth";
 import Sidebar from "./Sidebar";
 
-const DashboardLayout = ({ children }) => {
+type DashboardLayoutProps = {
+  children: ReactNode;
+};
+
+const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   useUserAuth();
   return (
     <div className="h-screen overflow-hidden">
