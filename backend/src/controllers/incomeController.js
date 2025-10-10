@@ -13,7 +13,7 @@ exports.addIncome = async (req, res) => {
     const newIncome = new Income({
       userId,
       icon,
-      source,
+      title,
       amount,
       date: new Date(date),
     });
@@ -53,7 +53,7 @@ exports.downloadIncomeExcel = async (req, res) => {
 
     // Prepare data for excel
     const data = income.map((item) => ({
-      Source: item.source,
+      Title: item.title,
       Amount: item.amount,
       Date: item.date,
     }));

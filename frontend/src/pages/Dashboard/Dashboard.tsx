@@ -5,6 +5,8 @@ import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
+import RecentTransactions from "../../components/RecentTransactions";
+import FinancialOverview from "../../components/FinancialOverview";
 
 interface DashboardData {
   totalBalance: number;
@@ -43,11 +45,9 @@ const Dashboard = () => {
     return () => {};
   }, []);
 
-  console.log(dashboardData);
-
   return (
     <DashboardLayout>
-      <div>
+      <div className="flex flex-col gap-8">
         <div className="flex gap-4 w-full">
           <Tile
             title="Total Balance"
@@ -67,6 +67,11 @@ const Dashboard = () => {
             icon={LuHandCoins}
             color="bg-red-500"
           />
+        </div>
+
+        <div className="flex gap-8">
+          <RecentTransactions />
+          <FinancialOverview />
         </div>
       </div>
     </DashboardLayout>
