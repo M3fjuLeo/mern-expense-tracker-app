@@ -2,48 +2,12 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Tile from "../../components/tile";
 import { CiCreditCard1 } from "react-icons/ci";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
-import { useEffect, useState } from "react";
-import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPaths";
 import RecentTransactions from "../../components/RecentTransactions";
 import FinancialOverview from "../../components/FinancialOverview";
-
-interface DashboardData {
-  totalBalance: number;
-  totalIncome: number;
-  totalExpense: number;
-}
+import { useDashboardData } from "../../hooks/useDashboardData";
 
 const Dashboard = () => {
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
-    null
-  );
-  const [loading, setLoading] = useState(false);
-
-  const fetchDashboardData = async () => {
-    if (loading) return;
-
-    setLoading(true);
-
-    try {
-      const response = await axiosInstance.get(
-        `${API_PATHS.DASHBOARD.GET_DATA}`
-      );
-
-      if (response.data) {
-        setDashboardData(response.data);
-      }
-    } catch (error) {
-      console.log("Something went wrond. Please try again.", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchDashboardData();
-    return () => {};
-  }, []);
+  const { dashboardData } = useDashboardData();
 
   return (
     <DashboardLayout>
