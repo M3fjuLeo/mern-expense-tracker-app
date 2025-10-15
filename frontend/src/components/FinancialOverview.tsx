@@ -6,12 +6,15 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useDashboardData } from "../hooks/useDashboardData";
 
 const FinancialOverview = () => {
+  const { dashboardData, loading } = useDashboardData();
+
   const data = [
-    { name: "Total Balance", value: 12000 },
-    { name: "Total Expenses", value: 7100 },
-    { name: "Total Income", value: 15000 },
+    { name: "Total Balance", value: dashboardData?.totalBalance },
+    { name: "Total Expenses", value: dashboardData?.totalExpense },
+    { name: "Total Income", value: dashboardData?.totalIncome },
   ];
 
   const COLORS = ["#6D28D9", "#DC2626", "#F97316"];
@@ -52,9 +55,9 @@ const FinancialOverview = () => {
               textAnchor="middle"
               dominantBaseline="middle"
               className="text-gray-600"
-              style={{ fontSize: "18px" }}
+              style={{ fontSize: "24px" }}
             >
-              $
+              ${dashboardData?.totalBalance}
             </text>
 
             <Tooltip formatter={(value, name) => [`$${value}`, name]} />
