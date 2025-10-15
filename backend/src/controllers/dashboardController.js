@@ -57,6 +57,14 @@ exports.getDashboardData = async (req, res) => {
       ),
     ].sort((a, b) => b.date - a.date);
 
+    const recentExpenses = lastTransactions.filter(
+      (txn) => txn.type === "expense"
+    );
+
+    const recentIncomes = lastTransactions.filter(
+      (txn) => txn.type === "income"
+    );
+
     res.json({
       totalIncome: totalIncome[0]?.total || 0,
       totalExpense: totalExpense[0]?.total || 0,
@@ -71,6 +79,8 @@ exports.getDashboardData = async (req, res) => {
         transactions: last60DaysIncomeTransactions,
       },
       recentTransactions: lastTransactions,
+      recentExpenses,
+      recentIncomes,
     });
   } catch (error) {
     res.status(500).json({ message: "Server Error: ", error });

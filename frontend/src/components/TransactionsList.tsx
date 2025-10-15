@@ -1,12 +1,9 @@
-import { useDashboardData } from "../hooks/useDashboardData";
 import TransactionCard from "./TransactionCard";
-const RecentTransactions = () => {
-  const { dashboardData, loading } = useDashboardData();
-
+const TransactionsList = ({ data, title, loading }) => {
   return (
     <div className="bg-white rounded-lg flex-2 p-6">
       <div className="flex justify-between mb-8">
-        <h1 className="text-xl font-medium">Recent Transactions</h1>
+        <h1 className="text-xl font-medium">{title}</h1>
         <button>See All</button>
       </div>
 
@@ -15,8 +12,8 @@ const RecentTransactions = () => {
           <p className="">Loading...</p>
         ) : (
           <div className="flex flex-col gap-4">
-            {dashboardData?.recentTransactions?.length ? (
-              dashboardData.recentTransactions
+            {data?.length ? (
+              data
                 .slice(0, 5)
                 .map((txn) => (
                   <TransactionCard
@@ -38,4 +35,4 @@ const RecentTransactions = () => {
   );
 };
 
-export default RecentTransactions;
+export default TransactionsList;

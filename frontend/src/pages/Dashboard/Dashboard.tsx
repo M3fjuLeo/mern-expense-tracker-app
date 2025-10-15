@@ -2,12 +2,12 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Tile from "../../components/tile";
 import { CiCreditCard1 } from "react-icons/ci";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
-import RecentTransactions from "../../components/RecentTransactions";
 import FinancialOverview from "../../components/FinancialOverview";
 import { useDashboardData } from "../../hooks/useDashboardData";
+import TransactionsList from "../../components/TransactionsList";
 
 const Dashboard = () => {
-  const { dashboardData } = useDashboardData();
+  const { dashboardData, loading } = useDashboardData();
 
   return (
     <DashboardLayout>
@@ -34,7 +34,20 @@ const Dashboard = () => {
         </div>
 
         <div className="flex gap-8">
-          <RecentTransactions />
+          <TransactionsList
+            data={dashboardData?.recentTransactions}
+            loading={loading}
+            title="Recent Transactions"
+          />
+          <FinancialOverview />
+        </div>
+
+        <div>
+          <TransactionsList
+            data={dashboardData?.recentExpenses}
+            loading={loading}
+            title="Expenses"
+          />
           <FinancialOverview />
         </div>
       </div>
