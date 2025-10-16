@@ -16,7 +16,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         </div>
         <div className="flex h-full">
           <Sidebar />
-          <div className="w-full h-full p-8 overflow-scroll">{children}</div>
+          <div className="w-full h-full p-8 pb-24 overflow-scroll">
+            {children}
+          </div>
         </div>
       </div>
     </div>

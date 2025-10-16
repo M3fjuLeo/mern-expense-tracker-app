@@ -5,6 +5,7 @@ import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import FinancialOverview from "../../components/FinancialOverview";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import TransactionsList from "../../components/TransactionsList";
+import BarChartComponent from "../../components/BarChartComponent";
 
 const Dashboard = () => {
   const { dashboardData, loading } = useDashboardData();
@@ -39,16 +40,16 @@ const Dashboard = () => {
             loading={loading}
             title="Recent Transactions"
           />
-          <FinancialOverview />
+          <FinancialOverview dashboardData={dashboardData} loading={loading} />
         </div>
 
-        <div>
+        <div className="flex gap-8">
           <TransactionsList
             data={dashboardData?.recentExpenses}
             loading={loading}
             title="Expenses"
           />
-          <FinancialOverview />
+          <BarChartComponent dashboardData={dashboardData} />
         </div>
       </div>
     </DashboardLayout>

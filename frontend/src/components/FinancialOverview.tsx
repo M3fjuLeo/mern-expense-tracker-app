@@ -6,11 +6,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { useDashboardData } from "../hooks/useDashboardData";
 
-const FinancialOverview = () => {
-  const { dashboardData, loading } = useDashboardData();
-
+const FinancialOverview = ({ dashboardData, loading }) => {
   const data = [
     { name: "Total Balance", value: dashboardData?.totalBalance },
     { name: "Total Expenses", value: dashboardData?.totalExpense },

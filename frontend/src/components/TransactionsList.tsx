@@ -1,7 +1,7 @@
 import TransactionCard from "./TransactionCard";
 const TransactionsList = ({ data, title, loading }) => {
   return (
-    <div className="bg-white rounded-lg flex-2 p-6">
+    <div className="bg-white rounded-lg shadow flex-2 p-6">
       <div className="flex justify-between mb-8">
         <h1 className="text-xl font-medium">{title}</h1>
         <button>See All</button>
