@@ -14,6 +14,14 @@ export interface DashboardData {
     type: string;
     icon?: string;
   }[];
+  recentExpenses: {
+    _id: string;
+    title: string;
+    amount: number;
+    date: string;
+    type: string;
+    icon?: string;
+  }[];
 }
 
 export const useDashboardData = () => {

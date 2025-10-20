@@ -2,10 +2,10 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Tile from "../../components/tile";
 import { CiCreditCard1 } from "react-icons/ci";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
-import FinancialOverview from "../../components/FinancialOverview";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import TransactionsList from "../../components/TransactionsList";
 import BarChartComponent from "../../components/BarChartComponent";
+import PieChartComponent from "../../components/PieChartComponent";
 
 const Dashboard = () => {
   const { dashboardData, loading } = useDashboardData();
@@ -40,7 +40,18 @@ const Dashboard = () => {
             loading={loading}
             title="Recent Transactions"
           />
-          <FinancialOverview dashboardData={dashboardData} loading={loading} />
+          <PieChartComponent
+            title="Financial Overwiew"
+            loading={loading}
+            data={[
+              { name: "Total Balance", value: dashboardData?.totalBalance },
+              { name: "Total Expenses", value: dashboardData?.totalExpense },
+              { name: "Total Income", value: dashboardData?.totalIncome },
+            ]}
+            colors={["#6D28D9", "#DC2626", "#F97316"]}
+            centerLabel="Total Balance"
+            centerValue={`${dashboardData?.totalBalance ?? 0}`}
+          />
         </div>
 
         <div className="flex gap-8">
@@ -49,7 +60,31 @@ const Dashboard = () => {
             loading={loading}
             title="Expenses"
           />
-          <BarChartComponent dashboardData={dashboardData} />
+          <BarChartComponent
+            title="Last 30 Days Expenses"
+            dashboardData={dashboardData}
+          />
+        </div>
+
+        <div className="flex gap-8">
+          <PieChartComponent
+            title="Last 60 Days Income"
+            loading={loading}
+            data={
+              dashboardData?.last60DaysIncome?.byTitle.map((item) => ({
+                name: item._id,
+                value: item.total,
+              })) ?? []
+            }
+            centerLabel="Total Income"
+            centerValue={dashboardData?.last60DaysIncome?.total ?? 0}
+          />
+
+          <TransactionsList
+            data={dashboardData?.recentIncomes}
+            loading={loading}
+            title="Last 60 Days Income"
+          />
         </div>
       </div>
     </DashboardLayout>

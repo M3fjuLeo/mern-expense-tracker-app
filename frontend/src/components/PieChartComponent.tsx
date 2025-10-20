@@ -7,18 +7,31 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const FinancialOverview = ({ dashboardData, loading }) => {
-  const data = [
-    { name: "Total Balance", value: dashboardData?.totalBalance },
-    { name: "Total Expenses", value: dashboardData?.totalExpense },
-    { name: "Total Income", value: dashboardData?.totalIncome },
-  ];
+type PieChartData = {
+  name: string;
+  value: number;
+};
 
-  const COLORS = ["#6D28D9", "#DC2626", "#F97316"];
+type Props = {
+  data: PieChartData[];
+  colors?: string[];
+  centerLabel: string;
+  centerValue?: string | number;
+  loading?: boolean;
+  title: string;
+};
 
+const PieChartComponent: React.FC<Props> = ({
+  title,
+  data,
+  colors = ["#6D28D9", "#DC2626", "#ffc658", "#F97316", "#a4de6c"],
+  centerLabel,
+  centerValue,
+  loading,
+}) => {
   return (
     <div className="rounded-lg bg-white w-full flex-3 p-6 shadow">
-      <h2 className="text-lg font-semibold mb-4">Financial Overview</h2>
+      <h2 className="text-lg font-semibold mb-4">{title}</h2>
 
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
@@ -32,8 +45,8 @@ const FinancialOverview = ({ dashboardData, loading }) => {
               paddingAngle={3}
               dataKey="value"
             >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+              {data.map((_, i) => (
+                <Cell key={i} fill={colors[i % colors.length]} />
               ))}
             </Pie>
             <text
@@ -44,7 +57,7 @@ const FinancialOverview = ({ dashboardData, loading }) => {
               className="text-gray-800"
               style={{ fontSize: "16px", fontWeight: "bold" }}
             >
-              Total Balance
+              {centerLabel}
             </text>
             <text
               x="50%"
@@ -54,7 +67,7 @@ const FinancialOverview = ({ dashboardData, loading }) => {
               className="text-gray-600"
               style={{ fontSize: "24px" }}
             >
-              ${dashboardData?.totalBalance}
+              ${centerValue}
             </text>
 
             <Tooltip formatter={(value, name) => [`$${value}`, name]} />
@@ -66,4 +79,4 @@ const FinancialOverview = ({ dashboardData, loading }) => {
   );
 };
 
-export default FinancialOverview;
+export default PieChartComponent;

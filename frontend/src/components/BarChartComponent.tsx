@@ -7,20 +7,49 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const BarChartComponent = ({ dashboardData }) => {
-  const data = dashboardData?.last30DaysExpenses?.transactions?.map((item) => ({
-    name: new Date(item.date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    }),
-    amount: item.amount,
-  }));
+type Transaction = {
+  date: string;
+  amount: number;
+};
 
-  console.log(new Date().toISOString());
+type Props = {
+  dashboardData?: {
+    last30DaysExpenses?: {
+      transactions?: Transaction[];
+    };
+  };
+  title: string;
+};
+
+const BarChartComponent: React.FC<Props> = ({ dashboardData, title }) => {
+  const transactions = dashboardData?.last30DaysExpenses?.transactions ?? [];
+
+  const data = Object.values(
+    transactions.reduce<Record<string, number>>((acc, { date, amount }) => {
+      const key = new Date(date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
+      acc[key] = (acc[key] ?? 0) + amount;
+      return acc;
+    }, {})
+  ).map((_, i, arr) => ({
+    name: Object.keys(
+      transactions.reduce<Record<string, number>>((acc, { date, amount }) => {
+        const key = new Date(date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        });
+        acc[key] = (acc[key] ?? 0) + amount;
+        return acc;
+      }, {})
+    )[i],
+    amount: arr[i],
+  }));
 
   return (
     <div className="bg-white p-6 rounded-lg shadow flex-3">
-      <h2 className="text-lg font-medium mb-4">Last 30 Days Expenses</h2>
+      <h2 className="text-lg font-semibold mb-4">{title}</h2>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data} barSize={60}>
           <XAxis dataKey="name" axisLine={false} tickLine={false} />
