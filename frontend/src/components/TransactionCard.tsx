@@ -4,7 +4,7 @@ const TransactionCard = ({ title, icon, amount, date, type }) => {
   const isExpense = type === "expense";
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center rounded-lg hover:bg-gray-50 px-2 justify-between">
       <div className="flex gap-6 items-center">
         <div className="bg-gray-50 size-16 inline-flex items-center justify-center rounded-full">
           <span className="text-3xl">{icon}</span>

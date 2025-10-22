@@ -29,6 +29,23 @@ const PieChartComponent: React.FC<Props> = ({
   centerValue,
   loading,
 }) => {
+  const renderLegend = (props: any) => {
+    const { payload } = props;
+    return (
+      <div className="flex justify-center gap-6 mt-4">
+        {payload.map((entry: any, index: number) => (
+          <div key={`item-${index}`} className="flex items-center gap-2">
+            <div
+              className="w-3 h-3 rounded-sm"
+              style={{ backgroundColor: entry.color }}
+            />
+            <span className="text-sm text-gray-700">{entry.value}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="rounded-lg bg-white w-full flex-3 p-6 shadow">
       <h2 className="text-lg font-semibold mb-4">{title}</h2>
@@ -71,7 +88,7 @@ const PieChartComponent: React.FC<Props> = ({
             </text>
 
             <Tooltip formatter={(value, name) => [`$${value}`, name]} />
-            <Legend verticalAlign="bottom" height={36} />
+            <Legend content={renderLegend} />
           </PieChart>
         </ResponsiveContainer>
       </div>
