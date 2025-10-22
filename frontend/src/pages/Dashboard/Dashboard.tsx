@@ -62,7 +62,7 @@ const Dashboard = () => {
           />
           <BarChartComponent
             title="Last 30 Days Expenses"
-            dashboardData={dashboardData}
+            transactions={dashboardData?.last30DaysExpenses?.transactions}
           />
         </div>
 
