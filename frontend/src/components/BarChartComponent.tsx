@@ -73,23 +73,25 @@ const BarChartComponent: React.FC<Props> = ({
   return (
     <div className="bg-white p-6 rounded-lg shadow flex-3">
       <div className="mb-8 flex justify-between items-start">
-        <div>
-          <h2 className="text-lg font-semibold">{title}</h2>
-          {description && (
-            <p className="font-light text-gray-500 text-sm mt-1">
-              {description}
-            </p>
+        <div className="flex items-center w-full justify-between">
+          <div>
+            <h2 className="text-lg font-semibold">{title}</h2>
+            {description && (
+              <p className="font-light text-gray-500 text-sm mt-1">
+                {description}
+              </p>
+            )}
+          </div>
+          {showButton && (
+            <button
+              onClick={onButtonClick}
+              className="bg-gray-50 flex items-center gap-2 hover:bg-purple-50 duration-100 hover:text-purple-600 px-4 py-2 border cursor-pointer border-gray-200 rounded-lg"
+            >
+              <span>+</span>
+              {buttonText}
+            </button>
           )}
         </div>
-        {showButton && (
-          <button
-            onClick={onButtonClick}
-            className="bg-purple-50 text-purple-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-100 transition-colors flex items-center gap-2"
-          >
-            <span>+</span>
-            {buttonText}
-          </button>
-        )}
       </div>
 
       <ResponsiveContainer width="100%" height={height}>
