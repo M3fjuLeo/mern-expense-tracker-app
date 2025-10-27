@@ -9,6 +9,7 @@ import FormButton from "../../components/FormButton";
 import EmojiPicker from "emoji-picker-react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
+import IncomeSources from "../../components/IncomeSources";
 
 const Income = () => {
   const { dashboardData, loading } = useDashboardData();
@@ -117,6 +118,12 @@ const Income = () => {
           <FormButton title="Add Income" />
         </form>
       </Modal>
+
+      <IncomeSources
+        title="Income Sources"
+        loading={loading}
+        data={dashboardData?.last60DaysIncome?.transactions ?? []}
+      />
     </DashboardLayout>
   );
 };
