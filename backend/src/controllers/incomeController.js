@@ -55,14 +55,25 @@ exports.downloadIncomeExcel = async (req, res) => {
     const data = income.map((item) => ({
       Title: item.title,
       Amount: item.amount,
-      Date: item.date,
+      Date: item.date.toISOString().split("T")[0],
     }));
 
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(wb, ws, "Income");
-    xlsx.writeFile(wb, "income_details.xlsx");
-    res.download("income_details.xlsx");
+
+    const buffer = xlsx.write(wb, { type: "buffer", bookType: "xlsx" });
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachemnt; filename=income_details.xlsx"
+    );
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.send(buffer);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }

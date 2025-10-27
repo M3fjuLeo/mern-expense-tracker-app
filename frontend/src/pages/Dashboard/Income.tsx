@@ -49,6 +49,29 @@ const Income = () => {
     }
   };
 
+  const downloadData = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axiosInstance.get(
+        API_PATHS.INCOME.DOWNLOAD_INCOME,
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "income_details.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.log("Error downloading income: ", error);
+    }
+  };
+
   return (
     <DashboardLayout>
       <BarChartComponent
@@ -123,6 +146,7 @@ const Income = () => {
         title="Income Sources"
         loading={loading}
         data={dashboardData?.last60DaysIncome?.transactions ?? []}
+        downloadData={downloadData}
       />
     </DashboardLayout>
   );
