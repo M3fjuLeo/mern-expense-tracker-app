@@ -80,6 +80,7 @@ const Income = () => {
         transactions={dashboardData?.last60DaysIncome?.transactions}
         showButton={true}
         onButtonClick={() => setIsModalOpen(true)}
+        buttonText="Add Income"
       />
 
       <Modal
