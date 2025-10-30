@@ -9,13 +9,9 @@ const TransactionCard = ({
   date,
   type,
   removable,
+  onDelete,
 }) => {
   const isExpense = type === "expense";
-
-  // const onDelete = async (e) => {
-  //   e.preventDefault();
-  //   onDelete?.(id, type);
-  // };
 
   return (
     <div className="flex group items-center rounded-lg hover:bg-gray-50 px-2 justify-between">
@@ -39,7 +35,7 @@ const TransactionCard = ({
       <div className="flex items-center gap-4">
         {removable && (
           <button
-            // onClick={onDelete}
+            onClick={onDelete}
             className="bg-gray-100 opacity-0 group-hover:opacity-100 p-2 hover:text-red-600 rounded-lg cursor-pointer"
           >
             <IoTrashOutline />

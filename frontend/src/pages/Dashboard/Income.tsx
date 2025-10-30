@@ -12,7 +12,7 @@ import { API_PATHS } from "../../utils/apiPaths";
 import AllTransactions from "../../components/AllTransactions";
 
 const Income = () => {
-  const { dashboardData, loading } = useDashboardData();
+  const { data: dashboardData, isLoading } = useDashboardData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [icon, setIcon] = useState(null);
@@ -145,7 +145,7 @@ const Income = () => {
 
       <AllTransactions
         title="Income Sources"
-        loading={loading}
+        loading={isLoading}
         data={dashboardData?.last60DaysIncome?.transactions ?? []}
         downloadData={downloadData}
       />

@@ -12,7 +12,7 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
 const Expense = () => {
-  const { dashboardData, loading } = useDashboardData();
+  const { data: dashboardData, isLoading } = useDashboardData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [icon, setIcon] = useState(null);
@@ -145,7 +145,7 @@ const Expense = () => {
 
       <AllTransactions
         title="All Expanses"
-        loading={loading}
+        loading={isLoading}
         data={dashboardData?.last30DaysExpenses?.transactions ?? []}
         downloadData={downloadData}
       />

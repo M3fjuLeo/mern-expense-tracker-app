@@ -1,7 +1,12 @@
 import TransactionCard from "./TransactionCard";
 import { FiDownload } from "react-icons/fi";
+import { useQueryClient } from "@tanstack/react-query";
+import axiosInstance from "../utils/axiosInstance";
+import { API_PATHS } from "../utils/apiPaths";
 
 const AllTransactions = ({ title, loading, data, downloadData }) => {
+  const queryClient = useQueryClient();
+
   const handleDelete = async (id, type) => {
     try {
       const endpoint =
@@ -10,8 +15,7 @@ const AllTransactions = ({ title, loading, data, downloadData }) => {
           : API_PATHS.INCOME.DELETE_INCOME(id);
 
       await axiosInstance.delete(endpoint);
-
-      if (refresh) refresh();
+      await queryClient.invalidateQueries(["dashboard"]);
     } catch (error) {
       console.log("Error deleting transaction: ", error);
     }
@@ -39,7 +43,7 @@ const AllTransactions = ({ title, loading, data, downloadData }) => {
               data.map((txn) => (
                 <TransactionCard
                   removable
-                  onDelete={handleDelete}
+                  onDelete={() => handleDelete(txn._id, txn.type)}
                   id={txn._id}
                   key={txn._id}
                   title={txn.title}

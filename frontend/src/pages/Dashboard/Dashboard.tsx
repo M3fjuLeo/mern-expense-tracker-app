@@ -59,6 +59,7 @@ const Dashboard = () => {
             data={dashboardData?.recentExpenses}
             loading={isLoading}
             title="Expenses"
+            to="/expense"
           />
           <BarChartComponent
             title="Last 30 Days Expenses"
@@ -84,6 +85,7 @@ const Dashboard = () => {
             data={dashboardData?.recentIncomes}
             loading={isLoading}
             title="Last 60 Days Income"
+            to="/income"
           />
         </div>
       </div>
