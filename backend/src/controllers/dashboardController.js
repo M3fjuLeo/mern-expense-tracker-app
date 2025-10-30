@@ -42,10 +42,17 @@ exports.getDashboardData = async (req, res) => {
       { $group: { _id: "$title", total: { $sum: "$amount" } } },
     ]);
 
-    const last30DaysExpenseTransactions = await Expense.find({
-      userId,
-      date: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
-    }).sort({ date: -1 });
+    const last30DaysExpenseTransactions = (
+      await Expense.find({
+        userId,
+        date: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+      })
+        .sort({ date: -1 })
+        .lean()
+    ).map((txn) => ({
+      ...txn,
+      type: "expense",
+    }));
 
     const expenseLast30Days = last30DaysExpenseTransactions.reduce(
       (sum, transaction) => sum + transaction.amount,

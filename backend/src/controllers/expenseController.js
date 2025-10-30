@@ -53,16 +53,28 @@ exports.downloadExpenseExcel = async (req, res) => {
 
     // Prepare data for excel
     const data = expense.map((item) => ({
-      title: item.title,
+      Title: item.title,
       Amount: item.amount,
-      Date: item.date,
+      Date: item.date.toISOString().split("T")[0],
     }));
 
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
-    xlsx.utils.book_append_sheet(wb, ws, "expense");
-    xlsx.writeFile(wb, "expense_details.xlsx");
-    res.download("expense_details.xlsx");
+    xlsx.utils.book_append_sheet(wb, ws, "Expense");
+
+    const buffer = xlsx.write(wb, { bookType: "xlsx", type: "base64" });
+    res.send(Buffer.from(buffer, "base64"));
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=income_details.xlsx"
+    );
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.send(buffer);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }

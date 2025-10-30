@@ -1,7 +1,22 @@
 import TransactionCard from "./TransactionCard";
 import { FiDownload } from "react-icons/fi";
 
-const IncomeSources = ({ title, loading, data, downloadData }) => {
+const AllTransactions = ({ title, loading, data, downloadData }) => {
+  const handleDelete = async (id, type) => {
+    try {
+      const endpoint =
+        type === "expense"
+          ? API_PATHS.EXPENSE.DELETE_EXPENSE(id)
+          : API_PATHS.INCOME.DELETE_INCOME(id);
+
+      await axiosInstance.delete(endpoint);
+
+      if (refresh) refresh();
+    } catch (error) {
+      console.log("Error deleting transaction: ", error);
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow flex-2 p-6 mt-6">
       <div className="flex justify-between mb-8">
@@ -23,6 +38,9 @@ const IncomeSources = ({ title, loading, data, downloadData }) => {
             {data?.length ? (
               data.map((txn) => (
                 <TransactionCard
+                  removable
+                  onDelete={handleDelete}
+                  id={txn._id}
                   key={txn._id}
                   title={txn.title}
                   date={txn.date}
@@ -41,4 +59,4 @@ const IncomeSources = ({ title, loading, data, downloadData }) => {
   );
 };
 
-export default IncomeSources;
+export default AllTransactions;

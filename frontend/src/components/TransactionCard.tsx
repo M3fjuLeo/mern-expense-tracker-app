@@ -1,10 +1,24 @@
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
+import { IoTrashOutline } from "react-icons/io5";
 
-const TransactionCard = ({ title, icon, amount, date, type }) => {
+const TransactionCard = ({
+  id,
+  title,
+  icon,
+  amount,
+  date,
+  type,
+  removable,
+}) => {
   const isExpense = type === "expense";
 
+  // const onDelete = async (e) => {
+  //   e.preventDefault();
+  //   onDelete?.(id, type);
+  // };
+
   return (
-    <div className="flex items-center rounded-lg hover:bg-gray-50 px-2 justify-between">
+    <div className="flex group items-center rounded-lg hover:bg-gray-50 px-2 justify-between">
       <div className="flex gap-6 items-center">
         <div className="bg-gray-50 size-16 inline-flex items-center justify-center rounded-full">
           <span className="text-3xl">{icon}</span>
@@ -22,23 +36,33 @@ const TransactionCard = ({ title, icon, amount, date, type }) => {
         </div>
       </div>
 
-      <div
-        className={`${
-          isExpense ? "bg-red-100" : "bg-green-100"
-        } px-2 py-1 rounded-lg`}
-      >
-        <span
-          className={`flex items-center gap-4 ${
-            isExpense ? "text-red-700" : "text-green-700"
-          }`}
+      <div className="flex items-center gap-4">
+        {removable && (
+          <button
+            // onClick={onDelete}
+            className="bg-gray-100 opacity-0 group-hover:opacity-100 p-2 hover:text-red-600 rounded-lg cursor-pointer"
+          >
+            <IoTrashOutline />
+          </button>
+        )}
+        <div
+          className={`${
+            isExpense ? "bg-red-100" : "bg-green-100"
+          } px-2 py-1 rounded-lg`}
         >
-          {isExpense ? "-" : "+"}{" "}
-          {amount?.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-          {isExpense ? <FaArrowTrendDown /> : <FaArrowTrendUp />}
-        </span>
+          <span
+            className={`flex items-center gap-4 ${
+              isExpense ? "text-red-700" : "text-green-700"
+            }`}
+          >
+            {isExpense ? "-" : "+"}{" "}
+            {amount?.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+            {isExpense ? <FaArrowTrendDown /> : <FaArrowTrendUp />}
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
+import AllTransactions from "../../components/AllTransactions";
 import DashboardLayout from "../../components/DashboardLayout";
 import ExpenseOverview from "../../components/ExpenseOverview";
 import FormButton from "../../components/FormButton";
@@ -53,7 +54,7 @@ const Expense = () => {
 
     try {
       const response = await axiosInstance.get(
-        API_PATHS.EXPENSE.DELETE_EXPENSE,
+        API_PATHS.EXPENSE.DOWNLOAD_EXPENSE,
         {
           responseType: "blob",
         }
@@ -62,12 +63,12 @@ const Expense = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "income_details.xlsx");
+      link.setAttribute("download", "expense_details.xlsx");
       document.body.appendChild(link);
       link.click();
       link.remove();
     } catch (error) {
-      console.log("Error downloading income: ", error);
+      console.log("Error downloading expense: ", error);
     }
   };
 
@@ -141,6 +142,13 @@ const Expense = () => {
           <FormButton title="Add Expense" />
         </form>
       </Modal>
+
+      <AllTransactions
+        title="All Expanses"
+        loading={loading}
+        data={dashboardData?.last30DaysExpenses?.transactions ?? []}
+        downloadData={downloadData}
+      />
     </DashboardLayout>
   );
 };

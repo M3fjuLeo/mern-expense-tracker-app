@@ -61,12 +61,12 @@ exports.downloadIncomeExcel = async (req, res) => {
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(wb, ws, "Income");
-
-    const buffer = xlsx.write(wb, { type: "buffer", bookType: "xlsx" });
+    const buffer = xlsx.write(wb, { bookType: "xlsx", type: "base64" });
+    res.send(Buffer.from(buffer, "base64"));
 
     res.setHeader(
       "Content-Disposition",
-      "attachemnt; filename=income_details.xlsx"
+      "attachment; filename=income_details.xlsx"
     );
     res.setHeader(
       "Content-Type",

@@ -8,7 +8,7 @@ import BarChartComponent from "../../components/BarChartComponent";
 import PieChartComponent from "../../components/PieChartComponent";
 
 const Dashboard = () => {
-  const { dashboardData, loading } = useDashboardData();
+  const { data: dashboardData, isLoading } = useDashboardData();
 
   return (
     <DashboardLayout>
@@ -37,12 +37,12 @@ const Dashboard = () => {
         <div className="flex gap-8">
           <TransactionsList
             data={dashboardData?.recentTransactions}
-            loading={loading}
+            loading={isLoading}
             title="Recent Transactions"
           />
           <PieChartComponent
             title="Financial Overwiew"
-            loading={loading}
+            loading={isLoading}
             data={[
               { name: "Total Balance", value: dashboardData?.totalBalance },
               { name: "Total Expenses", value: dashboardData?.totalExpense },
@@ -57,7 +57,7 @@ const Dashboard = () => {
         <div className="flex gap-8">
           <TransactionsList
             data={dashboardData?.recentExpenses}
-            loading={loading}
+            loading={isLoading}
             title="Expenses"
           />
           <BarChartComponent
@@ -69,7 +69,7 @@ const Dashboard = () => {
         <div className="flex gap-8">
           <PieChartComponent
             title="Last 60 Days Income"
-            loading={loading}
+            loading={isLoading}
             data={
               dashboardData?.last60DaysIncome?.byTitle.map((item) => ({
                 name: item._id,
@@ -82,7 +82,7 @@ const Dashboard = () => {
 
           <TransactionsList
             data={dashboardData?.recentIncomes}
-            loading={loading}
+            loading={isLoading}
             title="Last 60 Days Income"
           />
         </div>
