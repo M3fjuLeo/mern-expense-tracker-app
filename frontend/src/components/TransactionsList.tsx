@@ -1,7 +1,15 @@
 import TransactionCard from "./TransactionCard";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-const TransactionsList = ({ data, title, loading, to }) => {
+
+interface TransactionList {
+  data: [];
+  title: string;
+  loading: boolean;
+  to?: string;
+}
+
+const TransactionsList = ({ data, title, loading, to }: TransactionList) => {
   const navigate = useNavigate();
 
   return (

@@ -11,6 +11,11 @@ const Sidebar = () => {
   const { user, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    clearUser();
+    navigate("/login");
+  };
+
   return (
     <div className="bg-white p-8 min-h-full flex flex-col gap-8">
       <div className="items-center flex flex-col gap-2">
@@ -30,10 +35,13 @@ const Sidebar = () => {
           Expense
         </CustomLink>
 
-        <CustomLink to="/login">
+        <button
+          onClick={handleLogout}
+          className="text-lg flex items-center gap-4 w-full py-2 px-8 rounded-md transition-colors cursor-pointer hover:bg-purple-500 hover:text-white"
+        >
           <IoIosLogOut />
           Logout
-        </CustomLink>
+        </button>
       </ul>
     </div>
   );

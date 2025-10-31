@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Expense = () => {
   const { data: dashboardData, isLoading } = useDashboardData();
@@ -19,6 +20,8 @@ const Expense = () => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
+
+  const queryClient = useQueryClient();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +45,8 @@ const Expense = () => {
       setTitle("");
       setAmount("");
       setDate("");
+
+      await queryClient.invalidateQueries(["dashboard"]);
 
       setIsModalOpen(false);
     } catch (error) {

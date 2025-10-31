@@ -1,6 +1,17 @@
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 import { IoTrashOutline } from "react-icons/io5";
 
+interface TransactionCardProps {
+  id: string;
+  title: string;
+  icon: string;
+  amount: number;
+  date: string | Date;
+  type: "income" | "expense";
+  removable: boolean;
+  onDelete: (id: string, type: "income" | "expense") => void;
+}
+
 const TransactionCard = ({
   id,
   title,
@@ -10,7 +21,7 @@ const TransactionCard = ({
   type,
   removable,
   onDelete,
-}) => {
+}: TransactionCardProps) => {
   const isExpense = type === "expense";
 
   return (
@@ -35,7 +46,7 @@ const TransactionCard = ({
       <div className="flex items-center gap-4">
         {removable && (
           <button
-            onClick={onDelete}
+            onClick={() => onDelete(id, type)}
             className="bg-gray-100 opacity-0 group-hover:opacity-100 p-2 hover:text-red-600 rounded-lg cursor-pointer"
           >
             <IoTrashOutline />

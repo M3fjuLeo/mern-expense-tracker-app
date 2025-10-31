@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Modal from "../../components/Modal";
 import BarChartComponent from "../../components/BarChartComponent";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -15,12 +15,12 @@ const Income = () => {
   const { data: dashboardData, isLoading } = useDashboardData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [icon, setIcon] = useState(null);
+  const [icon, setIcon] = useState("");
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!title || !amount || !date) {
@@ -38,7 +38,7 @@ const Income = () => {
 
       console.log("Income added: ", response.data);
 
-      setIcon(null);
+      setIcon("");
       setTitle("");
       setAmount("");
       setDate("");
@@ -49,7 +49,7 @@ const Income = () => {
     }
   };
 
-  const downloadData = async (e) => {
+  const downloadData = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {

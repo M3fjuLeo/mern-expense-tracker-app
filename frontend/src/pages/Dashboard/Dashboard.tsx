@@ -72,10 +72,12 @@ const Dashboard = () => {
             title="Last 60 Days Income"
             loading={isLoading}
             data={
-              dashboardData?.last60DaysIncome?.byTitle.map((item) => ({
-                name: item._id,
-                value: item.total,
-              })) ?? []
+              dashboardData?.last60DaysIncome?.byTitle.map(
+                (item: { _id: string; total: number }) => ({
+                  name: item._id,
+                  value: item.total,
+                })
+              ) ?? []
             }
             centerLabel="Total Income"
             centerValue={dashboardData?.last60DaysIncome?.total ?? 0}
