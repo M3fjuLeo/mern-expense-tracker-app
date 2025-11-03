@@ -5,6 +5,7 @@ import SignUp from "./pages/Auth/SignUp";
 import Expense from "./pages/Dashboard/Expense";
 import Income from "./pages/Dashboard/Income";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -20,6 +21,13 @@ function App() {
           <Route path="/income" element={<Income />} />
         </Routes>
       </BrowserRouter>
+
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 3000,
+        }}
+      />
     </UserProvider>
   );
 }

@@ -7,6 +7,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const Login = () => {
         await queryClient.invalidateQueries(["dashboard"]);
 
         navigate("/dashboard");
+        toast.success("Logged in successfully");
       }
     } catch (error: any) {
       if (error.response && error.response.data.message) {

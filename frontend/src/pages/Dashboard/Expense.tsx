@@ -11,6 +11,7 @@ import { useDashboardData } from "../../hooks/useDashboardData";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const Expense = () => {
   const { data: dashboardData, isLoading } = useDashboardData();
@@ -32,14 +33,14 @@ const Expense = () => {
     }
 
     try {
-      const response = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
+      await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
         icon,
         title,
         amount: parseFloat(amount),
         date,
       });
 
-      console.log("Income added: ", response.data);
+      toast.success("Expense was added successfully");
 
       setIcon(null);
       setTitle("");

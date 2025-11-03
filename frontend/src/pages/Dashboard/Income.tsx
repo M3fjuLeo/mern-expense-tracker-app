@@ -10,6 +10,8 @@ import EmojiPicker from "emoji-picker-react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import AllTransactions from "../../components/AllTransactions";
+import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Income = () => {
   const { data: dashboardData, isLoading } = useDashboardData();
@@ -20,28 +22,32 @@ const Income = () => {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
 
+  const queryClient = useQueryClient();
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!title || !amount || !date) {
-      alert("All fields are required!");
+      toast.error("All fields are required!");
       return;
     }
 
     try {
-      const response = await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
+      await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
         icon,
         title,
         amount: parseFloat(amount),
         date,
       });
 
-      console.log("Income added: ", response.data);
+      toast.success("Income was added successfully");
 
       setIcon("");
       setTitle("");
       setAmount("");
       setDate("");
+
+      await queryClient.invalidateQueries(["dashboard"]);
 
       setIsModalOpen(false);
     } catch (error) {
