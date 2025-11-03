@@ -3,18 +3,43 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
 import { UserContext } from "../context/userContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiUser } from "react-icons/ci";
+import axiosInstance from "../utils/axiosInstance";
+import { API_PATHS } from "../utils/apiPaths";
 
 const Sidebar = () => {
-  const { user, clearUser } = useContext(UserContext);
+  const { user, updateUser, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     clearUser();
+    localStorage.removeItem("token");
     navigate("/login");
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token || user) return;
+
+    const fetchUserInfo = async () => {
+      try {
+        const res = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
+        if (res.data && res.data.user) {
+          updateUser({
+            id: res.data.user._id,
+            email: res.data.user.email,
+            fullName: res.data.user.fullName,
+            avatar: res.data.user.avatar,
+          });
+        }
+      } catch (error) {
+        console.log("Failed to download user data: ", error);
+      }
+    };
+    fetchUserInfo();
+  }, [user, updateUser]);
 
   return (
     <div className="bg-white p-8 min-h-full flex flex-col gap-8">

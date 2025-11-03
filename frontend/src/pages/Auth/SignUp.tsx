@@ -3,7 +3,7 @@ import Input from "../../components/Input";
 import FormButton from "../../components/FormButton";
 import { useNavigate } from "react-router-dom";
 import AvatarUpload from "../../components/AvatarUpload";
-import { useState, FormEvent, useContext } from "react";
+import { useState, useContext } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
@@ -82,16 +82,16 @@ const SignUp = () => {
       <div className="w-full min-w-[30rem] max-w-[50rem]">
         <div className="">
           <h1 className="text-3xl font-medium">Create an Account</h1>
-          <p className="font-light">
+          <p className="font-light mb-8">
             Join us today by entering your details below.
           </p>
 
           <form onSubmit={handleSignUp} className="flex flex-col gap-8 w-full">
-            <AvatarUpload
+            {/* <AvatarUpload
               onFileSelect={(file) =>
                 setFormData((prev) => ({ ...prev, avatar: file }))
               }
-            />
+            /> */}
             <div className="flex w-full flex-col gap-8">
               <div className="w-full flex flex-row gap-4 ">
                 <Input

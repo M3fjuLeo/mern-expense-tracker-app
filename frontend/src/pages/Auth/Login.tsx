@@ -6,10 +6,12 @@ import Input from "../../components/Input";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Login = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
+  const queryClient = useQueryClient();
 
   if (!userContext) {
     throw new Error("Login must be used within UserProvider");
@@ -46,6 +48,8 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
+        await queryClient.invalidateQueries(["dashboard"]);
+
         navigate("/dashboard");
       }
     } catch (error: any) {
