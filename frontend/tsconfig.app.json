@@ -4,11 +4,12 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "CommonJS",
-    "skipLibCheck": true,
 
-    /* Bundler mode */
+    /* ZMIANA TUTAJ ↓ */
+    "module": "ESNext",
     "moduleResolution": "bundler",
+
+    "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
