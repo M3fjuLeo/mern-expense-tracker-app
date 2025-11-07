@@ -2,7 +2,7 @@ import CustomLink from "./CustomLink";
 import { MdOutlineDashboard } from "react-icons/md";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../context/UserContext";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiUser } from "react-icons/ci";
