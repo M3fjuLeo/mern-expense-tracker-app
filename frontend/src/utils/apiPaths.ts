@@ -1,6 +1,5 @@
 // export const BASE_URL = "http://localhost:3001";
-export const BASE_URL =
-  "https://mern-expense-tracker-app-29fw.onrender.com/api/v1";
+export const BASE_URL = "https://mern-expense-tracker-app-29fw.onrender.com";
 
 export const API_PATHS = {
   AUTH: {
