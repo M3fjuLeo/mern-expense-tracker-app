@@ -10,7 +10,12 @@ import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPaths";
 
 const Sidebar = () => {
-  const { user, updateUser, clearUser } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+
+  // jeśli kontekst jeszcze się nie załadował → nie renderujemy UI
+  if (!userContext) return null;
+
+  const { user, updateUser, clearUser } = userContext;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -38,6 +43,7 @@ const Sidebar = () => {
         console.log("Failed to download user data: ", error);
       }
     };
+
     fetchUserInfo();
   }, [user, updateUser]);
 
