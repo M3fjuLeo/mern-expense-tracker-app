@@ -7,7 +7,7 @@ interface Transaction {
   title: string;
   date: string;
   amount: number;
-  type: string;
+  type: "income" | "expense";
   icon: string;
 }
 
@@ -40,9 +40,9 @@ const TransactionsList = ({
         )}
       </div>
 
-      <div className="">
+      <div>
         {loading ? (
-          <p className="">Loading...</p>
+          <p>Loading...</p>
         ) : (
           <div className="flex flex-col gap-4">
             {data?.length ? (
@@ -51,11 +51,14 @@ const TransactionsList = ({
                 .map((txn) => (
                   <TransactionCard
                     key={txn._id}
+                    id={txn._id}
                     title={txn.title}
                     date={txn.date}
                     amount={txn.amount}
-                    type={txn.type === "expense" ? "expense" : "income"}
+                    type={txn.type}
                     icon={txn.icon}
+                    removable={false}
+                    onDelete={() => {}}
                   />
                 ))
             ) : (

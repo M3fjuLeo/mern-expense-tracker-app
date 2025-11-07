@@ -15,16 +15,16 @@ import toast from "react-hot-toast";
 
 const Expense = () => {
   const { data: dashboardData, isLoading } = useDashboardData();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [icon, setIcon] = useState(null);
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const [icon, setIcon] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+  const [date, setDate] = useState<string>("");
 
   const queryClient = useQueryClient();
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (!title || !amount || !date) {
