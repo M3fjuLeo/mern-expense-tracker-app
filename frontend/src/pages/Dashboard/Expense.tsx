@@ -24,7 +24,7 @@ const Expense = () => {
 
   const queryClient = useQueryClient();
 
-  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!title || !amount || !date) {
