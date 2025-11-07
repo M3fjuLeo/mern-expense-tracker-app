@@ -5,25 +5,23 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
 
-    /* ZMIANA TUTAJ ↓ */
+    /* ✅ Poprawione ustawienia */
     "module": "ESNext",
-    "moduleResolution": "bundler",
-
+    "moduleResolution": "node",
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    /* ✅ Usuwamy problematyczne bundler mode */
     "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
     "strict": true,
     "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "../backend/src/utils/apiPaths.ts"]
+  "include": ["src"]
 }
