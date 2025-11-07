@@ -54,7 +54,7 @@ const TransactionsList = ({
                     title={txn.title}
                     date={txn.date}
                     amount={txn.amount}
-                    type={txn.type}
+                    type={txn.type === "expense" ? "expense" : "income"}
                     icon={txn.icon}
                   />
                 ))
