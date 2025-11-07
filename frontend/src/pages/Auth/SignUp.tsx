@@ -8,6 +8,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
 import uploadImage from "../../utils/uploadImage";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -25,7 +26,6 @@ const SignUp = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const { updateUser } = userContext;
 
@@ -42,7 +42,7 @@ const SignUp = () => {
     let profileImageUrl = "";
 
     if (!formData.fullName || !formData.email || !formData.password) {
-      setError("Please fill all required fields");
+      toast.error("Please fill all required fields");
       return;
     }
 
@@ -69,11 +69,10 @@ const SignUp = () => {
         navigate("/dashboard");
       }
     } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
+      const message =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(message);
     }
   };
 

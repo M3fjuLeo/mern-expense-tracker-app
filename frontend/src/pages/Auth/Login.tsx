@@ -55,11 +55,12 @@ const Login = () => {
         toast.success("Logged in successfully");
       }
     } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
+      const message =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again.";
+
+      setError(error.response.data.message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
