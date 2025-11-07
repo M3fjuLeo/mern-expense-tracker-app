@@ -7,7 +7,7 @@ interface TransactionCardProps {
   icon: string;
   amount: number;
   date: string | Date;
-  type: "income" | "expense";
+  type: "income" | "expense"; // ✅ poprawione
   removable: boolean;
   onDelete: (id: string, type: "income" | "expense") => void;
 }
@@ -52,6 +52,7 @@ const TransactionCard = ({
             <IoTrashOutline />
           </button>
         )}
+
         <div
           className={`${
             isExpense ? "bg-red-100" : "bg-green-100"

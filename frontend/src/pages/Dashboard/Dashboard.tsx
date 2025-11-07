@@ -1,5 +1,5 @@
 import DashboardLayout from "../../components/DashboardLayout";
-import Tile from "../../components/tile";
+import Tile from "../../components/Tile";
 import { CiCreditCard1 } from "react-icons/ci";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { useDashboardData } from "../../hooks/useDashboardData";
