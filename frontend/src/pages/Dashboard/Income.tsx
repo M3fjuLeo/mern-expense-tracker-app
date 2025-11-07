@@ -47,7 +47,7 @@ const Income = () => {
       setAmount("");
       setDate("");
 
-      await queryClient.invalidateQueries(["dashboard"]);
+      await queryClient.invalidateQueries({ queryKey: ["dashboard"] });
 
       setIsModalOpen(false);
     } catch (error) {

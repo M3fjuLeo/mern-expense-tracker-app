@@ -49,7 +49,7 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
-        await queryClient.invalidateQueries(["dashboard"]);
+        await queryClient.invalidateQueries({ queryKey: ["dashboard"] });
 
         navigate("/dashboard");
         toast.success("Logged in successfully");

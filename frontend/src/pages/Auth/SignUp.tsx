@@ -8,11 +8,13 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
 import uploadImage from "../../utils/uploadImage";
+import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
+  const queryClient = useQueryClient();
 
   if (!userContext) {
     throw new Error("Login must be used within UserProvider");
@@ -66,6 +68,8 @@ const SignUp = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(user);
+        await queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+
         navigate("/dashboard");
       }
     } catch (error: any) {
