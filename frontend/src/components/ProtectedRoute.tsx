@@ -5,7 +5,11 @@ import { useUserAuth } from "../hooks/useUserAuth";
 
 const ProtectedRoute = ({ children }) => {
   useUserAuth();
-  const { user } = useContext(UserContext);
+
+  const userContext = useContext(UserContext);
+  if (!userContext) return <Navigate to="/login" replace />;
+
+  const { user } = userContext;
 
   if (!user) {
     return <Navigate to="/login" replace />;

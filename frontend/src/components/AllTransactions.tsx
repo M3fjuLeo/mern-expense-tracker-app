@@ -15,7 +15,7 @@ const AllTransactions = ({ title, loading, data, downloadData }) => {
           : API_PATHS.INCOME.DELETE_INCOME(id);
 
       await axiosInstance.delete(endpoint);
-      await queryClient.invalidateQueries(["dashboard"]);
+      await queryClient.invalidateQueries({ queryKey: ["dashboard"] });
     } catch (error) {
       console.log("Error deleting transaction: ", error);
     }
