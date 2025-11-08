@@ -51,7 +51,7 @@ A web application for managing personal finances. It allows users to add, review
 
 ![Expense page](frontend/public/ExpensePage.png)
 
-## Live Version 👉 https://mern-expense-tracker-app-sigma.vercel.app/login
+## Live Version 👉 https://mern-expense-tracker-app-sigma.vercel.app
 
 ## 📦 Installation
 
