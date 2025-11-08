@@ -6,19 +6,16 @@ A web application for managing personal finances. It allows users to add, review
 
 ## ✨ Features
 
-- User authentication (Sign Up / Login)
-- Add income and expense transactions
-- View recent transactions
-- Dashboard with:
-  - Current balance
-  - Total income
-  - Total expenses
-- Data visualization:
-  - Bar chart (income)
-  - Line chart (expenses)
-  - Pie chart (balance overview)
-- Export data to `.xlsx`
-- Responsive UI
+1. User Authentication – Secure login and sign-up using JWT authentication.
+2. Dashboard Overview – Displays Total Balance, Income, and Expenses in summary cards.
+3. Income Management – Add, view, delete, and export income sources.
+4. Expense Management – Add, view, delete, and export expenses with category-based tracking.
+5. Interactive Charts – Visual representation of income & expenses using Bar, Pie, and Line charts.
+6. Recent Transactions – Displays the latest income and expense records for quick access.
+7. Expense & Income Reports – Download all income and expense data in Excel format.
+8. Mobile Responsive UI – Works seamlessly across desktops, tablets, and mobile devices.
+9. Intuitive Navigation – Sidebar menu with easy access to Dashboard, Income, Expenses, and Logout.
+10. Delete Functionality – Hover over income/expense cards to reveal a delete button for easy
 
 ---
 
@@ -37,6 +34,22 @@ A web application for managing personal finances. It allows users to add, review
 | xlsx                  | Exporting to Excel     |
 
 ---
+
+## Login Page
+
+![Login page](frontend/public/LoginPage.png)
+
+## Dashboard
+
+![Dashboard page](frontend/public/Dashboard.png)
+
+## Income Page
+
+![Incoem page](frontend/public/IncomePage.png)
+
+## Expense Page
+
+![Expense page](frontend/public/ExpensePage.png)
 
 ## 📦 Installation
 
